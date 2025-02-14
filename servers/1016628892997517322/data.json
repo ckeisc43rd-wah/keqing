@@ -1,0 +1,10 @@
+{
+    "waking": true,
+    "arr": [
+        "[object Undefined]",
+        "12",
+        "1",
+        "2"
+    ],
+    "voicedetect": false
+}
