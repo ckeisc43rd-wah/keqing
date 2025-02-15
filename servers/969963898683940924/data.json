@@ -5,5 +5,10 @@
         "幹我屁眼",
         "快"
     ],
-    "voicedetect": false
+    "voicedetect": false,
+    "pic": [
+        {
+            "dd": "https://cdn.discordapp.com/attachments/1016628939126472724/1339845177094963240/8e5ebd21fda7ef5cc3871a05d8752a09.jpg?ex=67b0338f&is=67aee20f&hm=5dbd6e96b1f5b152b95a7ac5d922d3e7f266c96ebd6edc9b7e28f6ab47126629&"
+        }
+    ]
 }

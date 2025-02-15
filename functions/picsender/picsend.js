@@ -1,52 +1,72 @@
-const { Events } = require("discord.js");
+const { Events, Client, Intents } = require("discord.js");
 
 const core = require("../../modules/core.js");
 
 const { client } = global;
 
-const imageMap = new Map();
+const fs = require('fs');
 
-client.on(Events.InteractionCreate, async(itr) => {
+const path = require('path');
+
+client.on(Events.InteractionCreate, async (itr) => {
 
     server = core.loadServer(itr.guild.id);
 
-    if (itr.isCommand()){
+    // 🔹 如果這次互動是自動補全 (autocomplete)，則執行這段程式碼
+    if (itr.isAutocomplete()) {
+        const data = JSON.parse(fs.readFileSync(`./servers/${itr.guild.id}/data.json`)); // 讀取 JSON 檔案
+        const wordstyping = itr.options.getFocused(); // 使用者當前輸入的內容
+        const picKeys = data.pic.map(obj => Object.keys(obj)[0])
+            .filter(key => key.includes(wordstyping)) // 🔍 篩選包含使用者輸入的 `key`
+            .slice(0, 25); // 取前 25 個匹配項目 (Discord 限制)
+        // 🔹 回傳自動補全結果
+        await itr.respond(
+            picKeys.map(key => ({ name: key, value: key })) // 轉換成 Discord 選項格式
+        );
+        return;
+    }
+
+    if (itr.isCommand()) {
         switch (itr.commandName) {
+
+            case "sendpic":
+                    // 🔹 如果這次互動是指令執行
+                        const data2 = JSON.parse(fs.readFileSync(`./servers/${itr.guild.id}/data.json`));
+                        const key = itr.options.getString("代號");
+                        const picmap = data2.pic.find(obj => obj[key]);
+                        if(picmap){
+                            await itr.reply(picmap[key]);
+                        }
+                        else{
+                            await itr.reply("沒有那種東西");
+                        }
+                        
+                
+                break;
             case "addpic":
                 const code = itr.options.getString('代號');
                 const url = itr.options.getString('圖片連結');
-
-
-                imageMap.set(code, url);
+                const data = JSON.parse(fs.readFileSync(`./servers/${itr.guild.id}/data.json`));
+                data.pic.push({[code]: url});
+                fs.writeFileSync(`./servers/${itr.guild.id}/data.json`, JSON.stringify(data, null, 4))
                 await itr.reply(`已儲存**${code}**\n${url}`);
-                    break;
-        }
-        switch (itr.commandName) {
-            case "sendpic":
-
-
+                break; 
         }
     }
 
 })
 
-client.on(Events.MessageCreate, async(msg) => {
+client.on(Events.MessageCreate, async (msg) => {
 
     server = core.loadServer(msg.guild.id);
 
-    const args = message.content.split(' ');
-    const prefix = args[0];
+    const prefix = '-';
 
-    if (prefix == '-'){
-        switch (args[1]) {
+    if (msg.content.startsWith(prefix)) {
+        let args = msg.content.slice(prefix.length);
+        switch (args) {
             case "addpic":
-                const code = args[2];
-                const url = msg.attachment.url;
-
-
-                imageMap.set(code, url);
-                await msg.reply(`已儲存**${code}**\n${url}`);
-                    break;
+                console.log(msg.attachments.url);
         }
     }
 

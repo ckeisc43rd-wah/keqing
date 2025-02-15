@@ -4,7 +4,19 @@
         "[object Undefined]",
         "12",
         "1",
-        "2"
+        "2",
+        "?"
     ],
-    "voicedetect": false
+    "voicedetect": false,
+    "pic": [
+        {
+            "star": "https://cdn.discordapp.com/attachments/1016628939126472724/1339856650705567776/IMG_0475_1.jpg?ex=67b03e3e&is=67aeecbe&hm=670fe0944cb1d3e338a276b46bfebfe55ede430700f07b06f5b3c0786389b63f&"
+        },
+        {
+            "dd": "https://cdn.discordapp.com/attachments/1016628939126472724/1339845177094963240/8e5ebd21fda7ef5cc3871a05d8752a09.jpg?ex=67b0338f&is=67aee20f&hm=5dbd6e96b1f5b152b95a7ac5d922d3e7f266c96ebd6edc9b7e28f6ab47126629&"
+        },
+        {
+            "鯊魚想死": "https://cdn.discordapp.com/attachments/1016628939126472724/1340388631231332493/1210899609774202903.png?ex=67b22db0&is=67b0dc30&hm=3d290e34234dc44b69b2f855429a6d41c241b377a4b9de2a8436fb9330f92c5d&"
+        }
+    ]
 }

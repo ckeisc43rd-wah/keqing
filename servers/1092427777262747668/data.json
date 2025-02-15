@@ -1,5 +1,8 @@
 {
     "waking": true,
     "arr": [],
-    "voicedetect": true
+    "voicedetect": true,
+    "pic": [
+        
+    ]
 }

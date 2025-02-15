@@ -58,6 +58,8 @@ const commands = [
             option => option
                 .setName('代號')
                 .setDescription('請選擇圖片代號')
+                .setRequired(true)
+                .setAutocomplete(true)
         )
 ];
 
