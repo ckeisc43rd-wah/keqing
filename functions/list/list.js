@@ -29,7 +29,6 @@ client.on(Events.InteractionCreate, (itr) => {
                 var opt = input.split(',');
                 for(var i=0; i<opt.length; i++){
                     var a = opt[i];
-                    console.log(a);
                     server.arr.push(a);
                     var text = server.arr.join("\n")
                 }

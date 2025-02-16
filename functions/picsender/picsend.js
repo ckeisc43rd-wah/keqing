@@ -38,7 +38,7 @@ client.on(Events.InteractionCreate, async (itr) => {
                             await itr.reply(picmap[key]);
                         }
                         else{
-                            await itr.reply("沒有那種東西");
+                            await itr.reply({content: "沒有那種東西", ephemeral: true});
                         }
                         
                 
@@ -47,9 +47,15 @@ client.on(Events.InteractionCreate, async (itr) => {
                 const code = itr.options.getString('代號');
                 const url = itr.options.getString('圖片連結');
                 const data = JSON.parse(fs.readFileSync(`./servers/${itr.guild.id}/data.json`));
-                data.pic.push({[code]: url});
-                fs.writeFileSync(`./servers/${itr.guild.id}/data.json`, JSON.stringify(data, null, 4))
-                await itr.reply(`已儲存**${code}**\n${url}`);
+                const keycheck = data.pic.find(obj => obj[code]);
+                if(keycheck){
+                    await itr.reply({content: "代號已存在", ephemeral: true});
+                }
+                else{
+                    data.pic.push({[code]: url});
+                    fs.writeFileSync(`./servers/${itr.guild.id}/data.json`, JSON.stringify(data, null, 4))
+                    await itr.reply(`已儲存**${code}**\n${url}`);
+                }
                 break; 
         }
     }
@@ -63,10 +69,22 @@ client.on(Events.MessageCreate, async (msg) => {
     const prefix = '-';
 
     if (msg.content.startsWith(prefix)) {
-        let args = msg.content.slice(prefix.length);
-        switch (args) {
+        let args = msg.content.slice(prefix.length).split(' ');
+        switch (args[0]) {
             case "addpic":
-                console.log(msg.attachments.url);
+                const picurl = msg.attachments.first()?.url;
+                const code = args[1];
+                const data = JSON.parse(fs.readFileSync(`./servers/${msg.guild.id}/data.json`));
+                const keycheck = data.pic.find(obj => obj[code]);
+                if(keycheck){
+                    await msg.reply({content: "代號已存在", ephemeral: true});
+                }
+                else{
+                    data.pic.push({[code]: picurl});
+                    fs.writeFileSync(`./servers/${msg.guild.id}/data.json`, JSON.stringify(data, null, 4))
+                    await msg.reply(`已儲存**${code}**\n${picurl}`);
+                }
+                break;
         }
     }
 
