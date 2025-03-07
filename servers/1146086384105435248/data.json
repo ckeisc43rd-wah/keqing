@@ -1,5 +1,7 @@
 {
-    "arr": [],
+    "arr": [
+        "test"
+    ],
     "voicedetect": false,
     "pic": [
         {
