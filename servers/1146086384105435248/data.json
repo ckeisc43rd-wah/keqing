@@ -1,0 +1,23 @@
+{
+    "arr": [
+        "test"
+    ],
+    "voicedetect": false,
+    "pic": [
+        {
+            "陽奈嘆氣": "https://cdn.discordapp.com/attachments/1016628939126472724/1340657830579011647/1739649094085.gif?ex=67b32867&is=67b1d6e7&hm=63ab27d0bdaf7824a5168c848deeefa058dfe20d049869d4d32a8f6d6994b90d&"
+        },
+        {
+            "陽奈工作": "https://cdn.discordapp.com/attachments/1016628939126472724/1340657831023738880/1739649091198.gif?ex=67b32867&is=67b1d6e7&hm=a37bd1843dce8ef7b4cc2d60398c7262ced3cc30d88b02dfffb0cee62cce7368&"
+        },
+        {
+            "陽奈睡覺": "https://cdn.discordapp.com/attachments/1016628939126472724/1340657831384322133/1739649088261.gif?ex=67b32867&is=67b1d6e7&hm=ebf661358b1a4da23992811876e0c39c353fefe865fbd077e9edc24725242dcd&"
+        },
+        {
+            "陽奈喝茶": "https://cdn.discordapp.com/attachments/1016628939126472724/1340657831749222440/1739649084977.gif?ex=67b32867&is=67b1d6e7&hm=d2f60069db1f5c8d53cc2e6876498412514e0aadedf95fd461256d46de9d8671&"
+        },
+        {
+            "陽奈害羞": "https://cdn.discordapp.com/attachments/1016628939126472724/1340657832168521809/1739649081723.gif?ex=67b32867&is=67b1d6e7&hm=a477ca1fec18dac3d3eae85338c330edb94452f02a8162e5334997a67a8bee8b&"
+        }
+    ]
+}
