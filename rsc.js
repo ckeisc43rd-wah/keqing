@@ -6,19 +6,25 @@ const commands = [
         .setName("ping")
         .setDescription("Reply with \"pong!\"."),
     new SlashCommandBuilder()
-        .setName("addopt")
-        .setDescription("在清單中新增選項")
-        .addStringOption(option => option
-            .setName("option")
-            .setDescription("要被加入清單的資料，用,分隔兩個以上的選項")    
-            .setRequired(true)
+        .setName("list")
+        .setDescription("huey is gay")
+        .addSubcommand(subcommand => subcommand
+            .setName("add")
+            .setDescription("在清單中新增選項")            
+            .addStringOption(option => option
+                .setName("option")
+                .setDescription("要被加入清單的資料，用,分隔兩個以上的選項")    
+                .setRequired(true)
+            )
+        )
+        .addSubcommand(subcommand => subcommand
+            .setName("clear")
+            .setDescription("清空清單"),
+        )
+        .addSubcommand(subcommand => subcommand
+            .setName("show") 
+            .setDescription("顯示清單"),
         ),
-    new SlashCommandBuilder()
-        .setName("clear")
-        .setDescription("清空清單"),
-    new SlashCommandBuilder()
-        .setName("showlist") 
-        .setDescription("顯示清單"),
     new SlashCommandBuilder()
         .setName("stick") 
         .setDescription("抽個籤決定今天的運勢吧(⁠≧⁠▽⁠≦⁠)"),
