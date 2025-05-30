@@ -26,7 +26,6 @@ client.on(Events.InteractionCreate, async(itr) => {
         switch (itr.commandName) {
             case "reminder":
                 var time = new Date(itr.options.get("time").value).getTime();
-                time+=28800000;
                 var matter = itr.options.get("matter").value;
                 var author = itr.member.id.toString();
                 var channel = itr.channelId;
