@@ -50,7 +50,6 @@ client.on(Events.InteractionCreate, async(itr) => {
 
                 function doFunc(){
                     var now = new Date().getTime();
-                    now+=28800000;
                     offset = new Date().getTime() - (start + count * interval);
                     nextTime = interval - offset;
                     for(var i = timelist.length - 1; i >= 0; --i){
