@@ -4,23 +4,11 @@ const core = require("../../modules/core.js");
 
 const { client } = global;
 
-var timelist = []
-var matterlist = [];
-var authorlist = [];
-var channellist = [];
-
-/* 
-
-integratedList = new Array();
-
-*/
-
+const reminderList = [];
 
 client.on(Events.InteractionCreate, async(itr) => {
 
     server = core.loadServer(itr.guild.id);
-
-    
 
     if (itr.isCommand()){
         switch (itr.commandName) {
@@ -28,52 +16,37 @@ client.on(Events.InteractionCreate, async(itr) => {
                 var time = new Date(itr.options.get("time").value).getTime();
                 var matter = itr.options.get("matter").value;
                 var author = itr.member.id.toString();
-                var channel = itr.channelId;
+                var channelId = itr.channelId;
+                var guildId = itr.guildId;
                 
-                timelist.push(time);
-                matterlist.push(matter);
-                authorlist.push(author);
-                channellist.push(channel);
+                reminderList.push(
+                {
+                    time,
+                    matter,
+                    author,
+                    channelId,
+                    guildId,
+                });
                 
-                itr.reply("好的我知道了");
-
-                /*
-                
-                lintegratedList.push({ time, matter, author, channel });
-                
-                */
-
-                var start = new Date().getTime(), count = 0,interval = 30000;
-                var offset = 0;//誤差時間
-                var nextTime = interval - offset;//原本間隔 - 誤差
-                setTimeout(doFunc,nextTime);
-
-                function doFunc(){
-                    var now = new Date().getTime();
-                    offset = new Date().getTime() - (start + count * interval);
-                    nextTime = interval - offset;
-                    for(var i = timelist.length - 1; i >= 0; --i){
-                        if(now >= timelist[i]){
-                            /* 
-                            
-                            const { time, matter, author, channel } = integratedList[i];
-
-                            */
-
-                            const content = matterlist[i];
-                            const id = authorlist[i];
-
-                            itr.guild.channels.cache.get(channellist[i]).send(`${client.user.toString()} 給了 <@${id}> 一巴掌 並告訴他 ${content}`);
-                            timelist.splice(i,1);
-                            matterlist.splice(i,1);
-                            authorlist.splice(i,1);
-                            channellist.splice(i,1);
-                            }
-                        }
-                    setTimeout(doFunc,nextTime);
-                }
+                await itr.reply("好的我知道了");
             }
         }
     }
 );
+setInterval(async () => {
+    const now = Date.now();
 
+    for (let i = reminderList.length - 1; i >= 0; i--) {
+        if (now >= reminderList[i].time) {
+            const { matter, author, channelId, guildId } = reminderList[i];
+                const guild = await client.guilds.fetch(guildId);
+                const channel = await guild.channels.fetch(channelId);
+
+                if (channel && channel.isTextBased()) {
+                    await channel.send(`${client.user.toString()} 給了 <@${author}> 一巴掌，並說：「${matter}」`);
+                }
+            }
+            reminderList.splice(i, 1);
+        }
+    }
+, 30000);
