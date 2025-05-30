@@ -13,7 +13,8 @@ client.on(Events.InteractionCreate, async(itr) => {
     if (itr.isCommand()){
         switch (itr.commandName) {
             case "reminder":
-                var time = new Date(itr.options.get("time").value).getTime();
+                var time = new Date(itr.options.get("time").value).getTime()-28800000;
+                //+8改UTC
                 var matter = itr.options.get("matter").value;
                 var author = itr.member.id.toString();
                 var channelId = itr.channelId;
@@ -35,7 +36,6 @@ client.on(Events.InteractionCreate, async(itr) => {
 );
 setInterval(async () => {
     const now = Date.now();
-
     for (let i = reminderList.length - 1; i >= 0; i--) {
         if (now >= reminderList[i].time) {
             const { matter, author, channelId, guildId } = reminderList[i];
@@ -49,4 +49,4 @@ setInterval(async () => {
             reminderList.splice(i, 1);
         }
     }
-, 30000);
+, 3000);
