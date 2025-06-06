@@ -28,25 +28,31 @@ client.on(Events.InteractionCreate, async(itr) => {
                     channelId,
                     guildId,
                 });
-                
-                await itr.reply("好的我知道了");
+
+                if (!itr.replied && !itr.deferred) {
+                    await itr.reply("好的我知道了");
+                }
+
             }
         }
     }
 );
-setInterval(async () => {
+
+async function timecheck(){
     const now = Date.now();
     for (let i = reminderList.length - 1; i >= 0; i--) {
         if (now >= reminderList[i].time) {
             const { matter, author, channelId, guildId } = reminderList[i];
-                const guild = await client.guilds.fetch(guildId);
-                const channel = await guild.channels.fetch(channelId);
+            const guild = await client.guilds.fetch(guildId);
+            const channel = await guild.channels.fetch(channelId);
 
-                if (channel && channel.isTextBased()) {
-                    await channel.send(`${client.user.toString()} 給了 <@${author}> 一巴掌，並說：「${matter}」`);
-                }
+            if (channel && channel.isTextBased()) {
+                await channel.send(`${client.user.toString()} 給了 <@${author}> 一巴掌，並說：「${matter}」`);
             }
             reminderList.splice(i, 1);
         }
     }
-, 3000);
+}
+
+setInterval(timecheck
+, 5000);
