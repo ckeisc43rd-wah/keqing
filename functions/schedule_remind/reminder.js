@@ -13,8 +13,10 @@ client.on(Events.InteractionCreate, async(itr) => {
     if (itr.isCommand()){
         switch (itr.commandName) {
             case "reminder":
+                await itr.deferReply()
                 var time = new Date(itr.options.get("time").value).getTime()-28800000;
                 //+8改UTC
+                console.log(time)
                 var matter = itr.options.get("matter").value;
                 var author = itr.member.id.toString();
                 var channelId = itr.channelId;
@@ -28,9 +30,8 @@ client.on(Events.InteractionCreate, async(itr) => {
                     channelId,
                     guildId,
                 });
-
-                if (!itr.replied && !itr.deferred) {
-                    await itr.reply("好的我知道了");
+                if (!itr.replied) {
+                    itr.followUp("好的我知道了");
                 }
 
             }
