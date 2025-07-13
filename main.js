@@ -54,3 +54,5 @@ require("./functions/fortune/drawstick.js");
 require("./functions/schedule_remind/reminder.js");
 
 require("./functions/picsender/picsend.js");
+
+require("./functions/chatAI/chatAI.js");
